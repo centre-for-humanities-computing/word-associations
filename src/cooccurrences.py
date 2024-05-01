@@ -6,7 +6,6 @@ from typing import Iterable, Optional
 import numpy as np
 import pandas as pd
 from radicli import Arg, Radicli
-from sklearn.feature_extraction.text import CountVectorizer
 from tqdm import tqdm
 
 cli = Radicli()
