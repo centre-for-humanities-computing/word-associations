@@ -1,7 +1,6 @@
 from functools import partial
 from pathlib import Path
 from typing import Optional
-
 import dacy
 import pandas as pd
 from spacy.tokens import Doc
@@ -21,19 +20,19 @@ def clean_doc(doc: Doc, extra_stopwords: Optional[set[str]] = None) -> str:
 
 def main():
     print("Collecting stop words.")
-    with open("dataset/Stopord.txt", encoding="iso-8859-1") as in_file:
+    with open(r"C:\Users\au546005\OneDrive - Aarhus universitet\Documents\PhD\Nordveck_project\Tool_test\dataset\stopord.txt", encoding="utf-8") as in_file:
         custom_stop_words = set(in_file)
         custom_stop_words = {stop.strip() for stop in custom_stop_words}
 
     print("Collecting all text files.")
-    files = Path("dataset/data").glob("*.txt")
+    files = Path(r"C:\Users\au546005\OneDrive - Aarhus universitet\Documents\PhD\Nordveck_project\Tool_test\dataset\data").glob("*.txt")
     texts = []
     ids = []
     for file in files:
         with file.open("r", encoding="utf-8") as in_file:
             texts.append(in_file.read())
             ids.append(file.stem)
-
+    print("før dacy load")
     nlp = dacy.load("small")
     progress = tqdm(texts, desc="Processing all texts with DaCy.")
     docs = nlp.pipe(progress)
@@ -42,7 +41,7 @@ def main():
 
     print("Saving clean texts.")
     data = pd.DataFrame({"id": ids, "text": texts, "clean_text": clean_texts})
-    data.to_csv("dataset/clean_data.csv")
+    data.to_csv(r"C:\Users\au546005\OneDrive - Aarhus universitet\Documents\PhD\Nordveck_project\Tool_test\dataset/clean_data.csv")
 
 
 if __name__ == "__main__":

@@ -47,7 +47,8 @@ def mutual_information(
         p_context = frequencies[word] / n_total
         p_seed = frequencies[seed_word] / n_total
         p_cooccurrence = cooccurrences[word] / n_total
-        pmi[word] = np.log2(p_cooccurrence / (p_context * p_seed))
+        if frequencies [word] >10: #setting threshold 
+            pmi[word] = np.log2(p_cooccurrence / (p_context * p_seed))
     return pmi
 
 
@@ -80,9 +81,10 @@ def run(
     n_context: int = 5,
 ):
     print("Loading data and metadata.")
-    data = pd.read_csv("dataset/clean_data.csv")
+    # Insert path to clean data and metadata
+    data = pd.read_csv(r"C:\Users\au546005\OneDrive - Aarhus universitet\Documents\PhD\Nordveck_project\Tools_nordveck\dataset\corrected_clean_data.csv")
     metadata = pd.read_csv(
-        "dataset/metadata_nordveck.csv", encoding="iso-8859-1", sep=";"
+        r"C:\Users\au546005\OneDrive - Aarhus universitet\Documents\PhD\Nordveck_project\Data_nordveck\metadata_nordveck.csv", encoding="utf-8", sep=";"
     ).rename(columns={"ID-dok": "id"})
     data = data.merge(metadata, on="id")
     if group_by is None:
