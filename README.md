@@ -31,6 +31,9 @@ This will output the cleaned corpus as a csv file with `id`, `text` and `clean_t
     - clean_data.csv
 ```
 
+### Word count 
+You can use the `src/word_count.py run` CLI to extraxct the most common words.
+
 ### Collect collocations
 
 You can use the `src/cooccurrences.py run` CLI, to extract the highest scoring collocations of a target word based on PMI.
